@@ -45,16 +45,40 @@ SDL_Renderer * MainSDLWindow::GetRenderer(void){
     
     return renderer; 
 }
+void keyboard()
+{
+const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
+if (keystates[SDL_SCANCODE_UP])
+{
+    printf( "Yé souis oune tractoupel\n" );
+}
+if (keystates[SDL_SCANCODE_DOWN])
+{
+    printf( "Mais je SPAM A\n" );
+}
+if (keystates[SDL_SCANCODE_LEFT])
+{
+    printf( "On as pas cancel l'escaton!\n" );
+}
+if (keystates[SDL_SCANCODE_RIGHT])
+{
+    printf( "Duel de regard avec un cailloux\n" );
+}
+}
 
+Uint32 frame_rate = 20 ;
 int main(){
     MainSDLWindow win_s;
     bool quit = false ;
     SDL_Event e ;
     win_s.Init("title", 800, 800);
      //While application is running
+     int frame_time_interval;
             while( !quit )
-            {   
+            {
+                Uint32 frame_time_start = SDL_GetTicks();
+                keyboard();
                 //Handle events on queue
                 while( SDL_PollEvent( &e ) != 0 )
                 {
@@ -66,6 +90,8 @@ int main(){
                     }
              
                 }
+                frame_time_interval = SDL_GetTicks() - frame_time_start;
+                SDL_Delay(frame_rate-frame_time_interval);
             }
  return EXIT_SUCCESS;
 }
