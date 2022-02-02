@@ -1,4 +1,5 @@
 #include "boucle.hpp"
+#include "snake.hpp"
 using namespace std;
 #define MOVECASE 10
 //Initialize variables  constructor//
@@ -47,25 +48,35 @@ SDL_Renderer * MainSDLWindow::GetRenderer(void){
     
     return renderer; 
 }
-void keyboard()
+int left = 0 ;
+int right = 0;
+int up = 0;
+int down = 0;
+void move()
 {
+left!= right;
+up!=down;
     const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
     if (keystates[SDL_SCANCODE_UP])
     {
-        printf( "Yé souis oune tractoupel\n" );
+        up +=1;
+        printf("%d\n",up);
     }
     if (keystates[SDL_SCANCODE_DOWN])
     {
-        printf( "Mais je SPAM A\n" );
+        down -=1;
+        printf("%d\n",down);
     }
     if (keystates[SDL_SCANCODE_LEFT])
     {
-        printf( "On as pas cancel l'escaton!\n" );
+        left -=2;
+        printf("%d\n",left);
     }
     if (keystates[SDL_SCANCODE_RIGHT])
     {
-        printf( "Duel de regard avec un cailloux\n" );
+        right += 2;
+        printf("%d\n",right);
     }
 }
 
@@ -82,7 +93,7 @@ int main()
     while( !quit )
     {
         Uint32 frame_time_start = SDL_GetTicks();
-        keyboard();
+        move();
         //Handle events on queue
         while( SDL_PollEvent( &e ) != 0 )
         {
