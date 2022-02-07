@@ -1,5 +1,6 @@
 #include "boucle.hpp"
 #include "snake.hpp"
+#include "fruit.hpp"
 using namespace std;
 #define MOVECASE 10
 //Initialize variables  constructor//
@@ -37,36 +38,47 @@ int MainSDLWindow::Init(const char* title, int Window_height, int Window_width){
         return EXIT_FAILURE;
     }  
     
-    SDL_Rect rectangle = {0,0,250,250};
+    SDL_Rect rectangle = {400,400,20,20};
     SDL_SetRenderDrawColor(renderer, 255,  255 , 255, 0);
-    SDL_RenderDrawRect(renderer, &rectangle);
+    SDL_RenderFillRect (renderer, &rectangle);
+    SDL_Rect fruit = {200,200,15,15};
+    SDL_SetRenderDrawColor(renderer, 255,  0 , 0, 0);
+    SDL_RenderFillRect (renderer, &fruit);
     SDL_RenderPresent(renderer);
     return EXIT_SUCCESS;
 }
 
 SDL_Renderer * MainSDLWindow::GetRenderer(void){
-    
-    return renderer; 
+
+    return renderer;
 }
-void keyboard()
+int left = 0 ;
+int right = 0;
+int up = 0;
+int down = 0;
+void move()
 {
     const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
     if (keystates[SDL_SCANCODE_UP])
     {
-        printf( "Yé souis oune tractoupel\n" );
+        up +=1;
+        printf("%d\n",up);
     }
     if (keystates[SDL_SCANCODE_DOWN])
     {
-        printf( "Mais je SPAM A\n" );
+        down -=1;
+        printf("%d\n",down);
     }
     if (keystates[SDL_SCANCODE_LEFT])
     {
-        printf( "On as pas cancel l'escaton!\n" );
+        left -=2;
+        printf("%d\n",left);
     }
     if (keystates[SDL_SCANCODE_RIGHT])
     {
-        printf( "Duel de regard avec un cailloux\n" );
+        right += 2; 
+        printf("%d\n",right);
     }
 }
 
@@ -83,7 +95,7 @@ int main()
     while( !quit )
     {
         Uint32 frame_time_start = SDL_GetTicks();
-        keyboard();
+        move();
         //Handle events on queue
         while( SDL_PollEvent( &e ) != 0 )
         {
